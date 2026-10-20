@@ -11,7 +11,8 @@ from Presentation.CLI.Request.RequestFactory import RequestFactory
 from Application.Common.Result import CommandResult
 from Bootstrap.ModulesBuilder.CopyModuleBuilder import CopyModuleBuilder 
 from Presentation.CLI.Parsers.CopyParser import CopyParserBuilder  
-
+from Bootstrap.ModulesBuilder.RestoreModuleBuilder import RestoreModuleBuilder
+from Presentation.CLI.Parsers.RestoreParser import RestoreParserBuilder
 
 def main() -> None:
     request_factory = RequestFactory()
@@ -22,12 +23,13 @@ def main() -> None:
         .add_command(CopyModuleBuilder())  
         .add_command(CreateModuleBuilder())
         .add_command(MoveModuleBuilder())
+        .add_command(RestoreModuleBuilder())
         .build()
     )
 
     parser = (ParserBuilder().add(DeleteParserBuilder())
               .add(CopyParserBuilder()).add(MoveParserBuilder())
-              .add(CreateParserBuilder()).build()
+              .add(CreateParserBuilder()).add(RestoreParserBuilder()).build()
     )
 
     application.run(parser.parse_args())
